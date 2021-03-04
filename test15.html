@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>練習</title>
+	</head>
+	<body>
+		<h1>練習</h1>
+		<form>
+			<input type="button" value="スタート" onclick="change(this)" />
+			<input type="button" value="ストップ" onclick="change(this)" />
+		</form>
+		<br />
+		<img id="dispImg" src="illust/loginhome.PNG" value="0" />
+		<script>
+			const array = [
+				["loginhome.PNG", 0],
+				["inu.PNG", 1],
+				["neko.PNG", 2],
+			];
+			let startFlg = false;
+
+			window.onload = function () {
+				startFlg = true;
+			};
+
+			var id = setInterval(function start() {
+				if (startFlg) {
+					let dispImg = document.getElementById("dispImg");
+					let imgPath = dispImg.getAttribute("src");
+					let imgName = imgPath.substr(7);
+					array.forEach(function (value) {
+						let val = value;
+						if (val[0] == imgName) {
+							if (val[1] == array.length - 1) {
+								dispImg.setAttribute("src", "illust/" + array[0][0]);
+							} else {
+								dispImg.setAttribute("src", "illust/" + array[val[1] + 1][0]);
+							}
+						}
+					});
+				}
+			}, 1000);
+
+			function change(e) {
+				let val = e.value;
+				if (val == "スタート") {
+					startFlg = true;
+				} else {
+					startFlg = false;
+				}
+			}
+		</script>
+		<style>
+			#dispImg {
+				width: 200px;
+				height: 200px;
+			}
+		</style>
+	</body>
+</html>

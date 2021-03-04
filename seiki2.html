@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>正規表現による入力チェック</title>
+</head>
+<body>
+	<h1>入力チェック</h1>
+	<form>
+		<table>
+			<tr>
+				<th>メールアドレス：</th>
+				<td><input type="email" id="email" size="20"></td>
+			</tr>
+			<tr>
+				<th>名前</th>
+				<td><input type="text" id="namae" size="20"></td>
+			</tr>
+			<tr>
+				<th>年齢</th>
+				<td><input type="text" id="age" size="4"></td>
+			</tr>
+			<tr>
+				<th>パスワード（８～１２桁）</th>
+				<td><input type="password" id="pass" size="20"></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input type="button" id="btn" value="確認"></th>
+			</tr>
+		</table>
+	</form>
+	<script>
+		const regex=/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@[A-Za-z0-9_.-]+\.[A-Za-z0-9]+$/;
+		const regex2=/^[^\x01-\x7E\uFF65-\uFF9F]+$/;
+		const regex3=/^[0-9]{1,3}$/;
+		const regex4=/^([a-zA-Z0-9]{8,12})$/;
+		const email=document.getElementById("email");
+		const namae=document.getElementById("namae");
+		const age=document.getElementById("age");
+		const pass=document.getElementById("pass");
+		const btn=document.getElementById("btn");
+		const input=document.getElementsByTagName("input");
+		function check(){
+			let count=0;
+			for(i=0;i<(input.length-1);i++){
+				input[i].style.borderColor="gray";
+			}
+			if(!regex.test(email.value)){
+				email.style.borderColor="red";
+				count++;
+			}
+			if(!regex2.test(namae.value)){
+				namae.style.borderColor="red";
+				count++;
+			}
+			if(!regex3.test(age.value)){
+				age.style.borderColor="red";
+				count++;
+			}
+			if(!regex4.test(pass.value)){
+				pass.style.borderColor="red";
+				count++;
+			}
+			if(count!=0){
+				alert("入力ミスがあります");
+			}
+			else{
+				alert("ＯＫ");
+			}
+		}
+		btn.onclick=check;
+	</script>
+</body>
+</html>

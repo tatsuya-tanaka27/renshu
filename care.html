@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>カレンダー</title>
+</head>
+<body>
+	<script>
+		let month=12,week=0,matsu,day;
+		switch(month){
+			case 2:
+				matsu=28;
+				break;
+			case 4:case 6:case 9:case 11:
+				matsu=30;
+				break;
+			default:
+				matsu=31;
+				break;
+		}
+		day=1-week;
+		document.write("<table>");
+		document.write("<caption>"+month+"月</caption>");
+		document.write("<tr><th>日</th><th>月</th><th>火</th><th>水</th><th>木</th><th>金</th><th>土</th></tr>");
+		while(1){
+			document.write("<tr>");
+			for(i=0;i<7;i++){
+				if(day<1 || day>matsu){
+					document.write("<td>&nbsp;</td>");
+				}
+				else{
+					document.write("<td>"+day+"</td>");
+				}
+				day++;
+			}
+			document.write("</tr>");
+			if(day>=matsu){
+				break;
+			}
+		}
+		document.write("</table>");
+	</script>
+</body>
+</html>

@@ -1,0 +1,301 @@
+﻿<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>フレキシブルレイアウト</title>
+	<link href="flex.css" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+	<main>
+		<h1>フレキシブルレイアウト</h1>
+		<p>これは、現在使用数が増えてきている、floatに変わる横並びの手法です。<br>
+		css3によって可能になりました。</p>
+		<section>
+			<h2>基本形</h2>
+			<section class="inlineflex1">
+			    <h3>フレキシブルボックスのインラインレイアウト</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex1">
+			    <h3>フレキシブルボックスのブロックレイアウト</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<p>どちらもここまでは同じですが、さらに別のプロパティを使うことで変化が出てきます。</p>
+		</section>
+		<section>
+			<h2>flex-directionプロパティの使用による変化</h2>
+			<section>
+				<h3>各プロパティの動き</h3>
+				<dl>
+					<dt>row（初期値）</dt>
+					<dd>左から右へ横並び</dd>
+					<dt>row-reverse</dt>
+					<dd>右から左へ横並び</dd>
+					<dt>column</dt>
+					<dd>縦並び</dd>
+					<dt>column-reverse</dt>
+					<dd>逆順の縦並び</dd>
+				</dl>
+			</section>
+			<section class="inlineflex2">
+			    <h3>インラインレイアウトでflex-direction:row</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="inlineflex3">
+			    <h3>インラインレイアウトでflex-direction:row-reverse</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="inlineflex4">
+			    <h3>インラインレイアウトでflex-direction:column</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="inlineflex5">
+			    <h3>インラインレイアウトでflex-direction:column-reverse</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex2">
+			    <h3>ブロックレイアウトでflex-direction:row</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex3">
+			    <h3>ブロックレイアウトでflex-direction:row-reverse</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex4">
+			    <h3>ブロックレイアウトでflex-direction:column</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex5">
+			    <h3>ブロックレイアウトでflex-direction:column-reverse</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+		</section>
+		<section>
+			<h2>flex-wrapプロパティの使用による変化</h2>
+			<section>
+				<h3>各プロパティの動き</h3>
+				<p>flexボックスを600pxにしてボーダーを付け、内包ボックスを250pxに指定しています。</p>
+				<dl>
+					<dt>nowrap（初期値）</dt>
+					<dd>折り返ししないでＢＯＸを突き抜ける</dd>
+					<dt>wrap</dt>
+					<dd>通常通り折り返す</dd>
+					<dt>wrap-reverse</dt>
+					<dd>折り返して逆順にする</dd>
+				</dl>
+			</section>
+			<section class="inlineflex6">
+			    <h3>インラインレイアウトでflex-wrap:nowrap</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="inlineflex7">
+			    <h3>インラインレイアウトでflex-wrap:wrap</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="inlineflex8">
+			    <h3>インラインレイアウトでflex-wrap:wrap-reverse</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex6">
+			    <h3>ブロックレイアウトflex-wrap:nowrap</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex7">
+			    <h3>ブロックレイアウトでflex-wrap:wrap</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex8">
+			    <h3>ブロックレイアウトでflex-wrap:wrap-reverse</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+		</section>
+		<section>
+			<h2>flex-flowプロパティ</h2>
+			<p>flex-directionとflex-wrapを同時指定できるプロパティです。<br>
+			flex-flow:flex-directionの値 flex-wrapの値;
+			の順に記載します。</p>
+			<section class="blockflex9">
+			    <h3>（例）ブロックレイアウトでflex-flow:row-reverse nowrap</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+		</section>
+		<section>
+			<h2>水平方向をそろえるjustify-contentプロパティ</h2>
+			<section>
+				<h3>各プロパティの動き</h3>
+				<dl>
+					<dt>flex-start（初期値）</dt>
+					<dd>左寄せ</dd>
+					<dt>flex-end</dt>
+					<dd>右寄せ</dd>
+					<dt>center</dt>
+					<dd>中央寄せ</dd>
+					<dt>space-between</dt>
+					<dd>均等</dd>
+					<dt>space-evenly</dt>
+					<dd>両サイドも余白がある均等</dd>
+				</dl>
+			</section>
+			<section class="blockflex10">
+			    <h3>ブロックレイアウトでjustify-content:flex-start</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex11">
+			    <h3>ブロックレイアウトでjustify-content:flex-end</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex12">
+			    <h3>ブロックレイアウトでjustify-content:center</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex13">
+			    <h3>ブロックレイアウトでjustify-content:space-between</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex14">
+			    <h3>ブロックレイアウトでjustify-content:space-evenly</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+		</section>
+		<section>
+			<h2>垂直方向をそろえるalign-itemsプロパティ</h2>
+			<section>
+				<h3>各プロパティの動き</h3>
+				<dl>
+					<dt>stretch（初期値）</dt>
+					<dd>指定したｂｏｘの高さに子の高さをそろえる</dd>
+					<dt>flex-start</dt>
+					<dd>上揃え</dd>
+					<dt>flex-end</dt>
+					<dd>下揃え</dd>
+					<dt>center</dt>
+					<dd>中央揃え</dd>
+				</dl>
+			</section>
+			<section class="blockflex15">
+			    <h3>ブロックレイアウトでalign-items:stretch</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex16">
+			    <h3>ブロックレイアウトでalign-items:flex-start</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex17">
+			    <h3>ブロックレイアウトでalign-items:flex-end</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+			<section class="blockflex18">
+			    <h3>ブロックレイアウトでalign-items:center</h3>
+			    <ul class="display">
+			        <li class="l1">1</li>
+			        <li class="l2">2</li>
+			        <li class="l3">3</li>
+			    </ul>
+			</section>
+		</section>
+		<p class="last">この他にもプロパティがありますが、まずはこちらをマスターしましょう。</p>
+	</main>
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿@charset "UTF-8";
+
+#wrapper{
+	width:800px;
+	margin:0 auto;
+}
+
+.box1,.box2,.box3,.box4,.box5,.box6{
+	float:left;
+	width:200px;
+	height:200px;
+}
+
+.box1,.box2,.box4,.box5{
+	margin-right:100px;
+}
+
+.box1{
+	background:blue;
+}
+
+.box2{
+	background:red;
+}
+
+.box3{
+	background:green;
+}
+
+.box4{
+	background:yellow;
+}
+
+.box5{
+	background:pink;
+}
+
+.box6{
+	background:navy;
+}
+
+#col1{
+	margin-bottom:100px;
+}
+
+.clearfix:after{
+	content:"";
+	display:block;
+	clear:both;
+}

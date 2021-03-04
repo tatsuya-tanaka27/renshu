@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<style>
+		body{
+			height:2000px;
+		}
+	</style>
+</head>
+<body>
+	<script>
+	const body=document.getElementsByTagName("body")[0];
+	window.onscroll=function(){
+		console.log(document.documentElement.scrollTop);
+		if (document.documentElement.scrollTop > 100) {
+			body.style.background="red";
+		}
+		else{
+			body.style.background="white";
+		}
+	}
+	</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>練習</title>
+	</head>
+	<body>
+		<h1>練習</h1>
+		<img id="dispImg" src="illust/loginhome.PNG" value="0" onclick="chImg()" />
+		<script>
+			const array = [
+				["loginhome.PNG", 0],
+				["inu.PNG", 1],
+				["neko.PNG", 2],
+			];
+			function chImg() {
+				let dispImg = document.getElementById("dispImg");
+				let imgPath = dispImg.getAttribute("src");
+				let imgName = imgPath.substr(7);
+
+				array.forEach(function (value) {
+					let val = value;
+					if (val[0] == imgName) {
+						if (val[1] == array.length - 1) {
+							dispImg.setAttribute("src", "illust/" + array[0][0]);
+						} else {
+							dispImg.setAttribute("src", "illust/" + array[val[1] + 1][0]);
+						}
+					}
+				});
+			}
+		</script>
+		<style>
+			#dispImg {
+				width: 200px;
+				height: 200px;
+			}
+		</style>
+	</body>
+</html>

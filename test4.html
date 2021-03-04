@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>練習</title>
+</head>
+<body>
+  <h1>練習</h1>
+  <input type="text" id="numInput">
+  <input type="button" value="判定" onclick="test()">
+  <br>
+  <p id="disp"></p>
+  <script>
+  function test() {
+  
+  var num= Number(document.getElementById("numInput").value);
+  
+  if(num % 400 == 0 || (num % 100 != 0 && num % 4 == 0)) {
+    document.getElementById("disp").innerHTML = "うるう年";
+  } else {
+  	document.getElementById("disp").innerHTML = "うるう年ではない";
+  }
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+﻿@charset "UTF-8";
+
+header,
+nav,
+footer,
+#wrapper {
+	margin: 0 auto;
+}
+
+body {
+	background: rgb(51, 102, 153);
+}
+
+header {
+	width: 800px;
+	height: 150px;
+	background: blue;
+}
+
+nav {
+	width: 800px;
+	height: 100px;
+	background: purple;
+}
+
+#wrapper {
+	width: 800px;
+	height: 300px;
+	background: white;
+}
+
+main {
+	display: block;
+}
+
+#col1,
+#col2,
+#col3 {
+	margin-top: 15px;
+}
+
+#col1 {
+	width: 350px;
+	height: 270px;
+	background: red;
+	float: left;
+	margin-left: 25px;
+}
+
+#col2 {
+	width: 50px;
+	height: 240px;
+	padding-top: 30px;
+	background: black;
+	float: left;
+}
+
+#col3 {
+	width: 350px;
+	height: 240px;
+	padding-top: 30px;
+	background: pink;
+	float: left;
+}
+
+.box1,
+.box2 {
+	width: 300px;
+	height: 100px;
+	margin-left: 25px;
+}
+
+.box1 {
+	background: green;
+	margin-bottom: 10px;
+}
+
+.box2 {
+	background: orange;
+}
+
+.sub_box1,
+.sub_box2,
+.sub_box3,
+.sub_box4,
+.sub_box5,
+.sub_box6 {
+	width: 30px;
+	height: 30px;
+	margin-left: 10px;
+}
+
+.sub_box1,
+.sub_box2,
+.sub_box3 {
+	margin-top: 10px;
+}
+
+.sub_box1,
+.sub_box4 {
+	margin-left: 100px;
+}
+
+.sub_box4,
+.sub_box5,
+.sub_box6 {
+	margin-top: 10px;
+}
+
+.sub_box1 {
+	background: gray;
+	float: left;
+}
+
+.sub_box2 {
+	background: gray;
+	float: left;
+}
+
+.sub_box3 {
+	background: gray;
+	float: left;
+}
+
+.sub_box4 {
+	background: gray;
+	float: left;
+}
+
+.sub_box5 {
+	background: gray;
+	float: left;
+}
+
+.sub_box6 {
+	background: gray;
+	float: left;
+}
+
+footer {
+	width: 800px;
+	height: 100px;
+	background: yellow;
+}
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}

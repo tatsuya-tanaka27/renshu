@@ -1,0 +1,104 @@
+@charset "UTF-8";
+
+body,h1,p,ul,ol,li,dl,dt,dd{
+	margin:0;
+	padding:0;
+}
+
+li{
+	list-style:none;
+}
+
+img{
+	border:none;
+	vertical-align:top;
+}
+
+html{
+	font:62.5%/1.4 "Yu Gothic",游ゴシック,YuGothic,游ゴシック体,Meiryo,メイリオ,"Hiragino Kaku Gothic ProN","ヒラギノ角ゴ ProN W3",sans-serif;
+	font-size:62.5%;
+}
+
+#wrapper{
+	width:800px;
+	margin:0 auto;
+	padding:0 10px;
+	background:url(images/kage.gif) repeat-y;
+}
+
+nav{
+	margin-bottom:20px;
+}
+
+nav li{
+	float:left;
+	width:200px;
+}
+
+main{
+	display:block;
+	padding:0 15px;
+	margin-bottom:20px;
+}
+
+#left_content{
+	float:left;
+	width:155px;
+	margin-right:16px;
+}
+
+#left_content li,#right_content li{
+	padding:5px;
+}
+
+#left_content li:nth-child(-n+4),#right_content li:nth-child(-n+4){
+	background: url(images/tensen.gif) no-repeat center bottom;
+}
+
+#left_content>ul,#right_content>ol{
+	width:153px;
+	border:1px solid #666;
+}
+
+dl>dt{
+	float:left;
+	width:60px;
+}
+
+dl>dd{
+	float:right;
+	width:78px;
+	font-size:1.5em;
+}
+
+#center_content{
+	float:left;
+	width:428px;
+	margin-right:16px;
+}
+
+#center_content>h1{
+	margin-bottom:10px;
+}
+
+#center_content li:nth-child(1){
+	float:left;
+	width:209px;
+}
+
+#center_content li:nth-child(2){
+	float:right;
+	width:209px;
+}
+
+#right_content{
+	float:left;
+	width:155px;
+}
+
+.clearfix:after,dl:after{
+	display:block;
+	content:"";
+	clear:both;
+}
+

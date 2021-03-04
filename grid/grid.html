@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>フレキシブルレイアウト</title>
+	<link href="grid.css" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+	<main>
+		<h1>グリッドレイアウト</h1>
+		<p>エクセルの表のようにボックス配置し、そのボックスを連結したりして作るレイアウトです。<br>
+		flexの機能を利用して行っていたグリッドレイアウトをより発展させたものになります</p>
+		<table>
+			<tr><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td></tr>
+			<tr><td></td><td></td><td></td><td></td></tr>
+		</table>
+		<p>上記のようなボックス配置を連結し下記のようなボックス配置にすることができます。</p>
+		<table>
+			<tr><td rowspan="3"></td><td></td><td colspan="2"></td></tr>
+			<tr><td></td><td></td><td rowspan="2"></td></tr>
+			<tr><td></td><td></td></tr>
+		</table>
+		<section>
+			<h2>グリッドレイアウトのの構成</h2>
+			<p>グリッドレイアウトを行うもの全体を囲むボックスにdisplay: grid;を指定します<br>
+			これをコンテナと呼びます。
+			そのほか以下のような名前が構成要素についています。</p>
+			<ul>
+				<li>コンテナ内に配置されるボックスはアイテム</li>
+				<li>上記図のボーラーに当たるものをライン</li>
+				<li>ライン間（アイテムの幅・高さの部分）をトラック</li>
+				<li>アイテムを配置できるセル（結合されたのを含む）をエリア</li>
+			</ul>
+			<p>ラインは左から右へ1,2,3、上から下へ1,2,3と番号が振られています。</p>
+		</section>
+		<section>
+			<h2>グリッドレイアウトのの作成</h2>
+			<p>以下のＣＳＳを設定します</p>
+			<ul>
+				<li>コンテナになるボックスにdisplay: grid;を指定</li>
+				<li>各トラックのサイズを指定<ul>
+					<li>行のトラックの高さをgrid-template-rowsプロパティで上から順に半角スペースで区切って指定</li>
+					<li>行のトラックの幅をgrid-template-columnsプロパティで左から順に半角スペースで区切って指定</li>
+					</ul>
+				</li>
+				<li>アイテムの配置位置を指定<ul>
+					<li>アイテムを設置する行のラインの番号をgrid-rowプロパティでスラッシュ区切りで指定する</li>
+					<li>アイテムを設置する列のラインの番号をgrid-columnプロパティでスラッシュ区切りで指定する</li>
+					</ul>
+				</li>
+			</ul>
+		</section>
+		<section>
+			<h2>作成例</h2>
+			<div id="container">
+				<div class="item_a"><p>A</p></div>
+				<div class="item_b"><p>B</p></div>
+				<div class="item_c"><p>C</p></div>
+				<div class="item_d"><p>D</p></div>
+				<div class="item_e"><p>E</p></div>
+				<div class="item_f"><p>F</p></div>
+				<div class="item_g"><p>G</p></div>
+				<div class="item_h"><p>H</p></div>
+			</div>
+		</section>
+	</main>
+</div>
+</html>

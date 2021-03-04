@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>練習</title>
+	</head>
+	<body>
+		<h1>練習</h1>
+		<span>メールアドレス：</span
+		><input type="text" id="inputMailAddress" /><br />
+		<span>名前：</span><input type="text" id="inputName" /><br />
+		<span>年齢：</span><input type="text" id="inputAge" /><br />
+		<span>パスワード（８～１２桁）：</span
+		><input type="text" id="inputPasswprd" /><br />
+		<input type="button" value="確認" onclick="test()" />
+		<br />
+		<p id="disp"></p>
+		<script>
+			function test() {
+				// 正規表現設定
+				const patternMail = /^([A-Za-z0-9]+)$/; // 正規表現パターン（メールアドレス）：半角英数値のみ許容
+				const patternName = /^[^\x01-\x7E\xA1-\xDF]+$/; // 正規表現パターン（名前）：全角文字のみ許容
+				const patternAge = /^([0-9]{1,3})$/; // 正規表現パターン（年齢）：１～３桁までの半角数値のみ許容
+				const patternPass = /^([0-9]{8,12})$/; // 正規表現パターン（パスワード）：８～１２桁の半角数値のみ許容
+
+				// input要素取得
+				let inputMailAddress = document.getElementById("inputMailAddress");
+				let inputName = document.getElementById("inputName");
+				let inputAge = document.getElementById("inputAge");
+				let inputPasswprd = document.getElementById("inputPasswprd");
+
+				// input要素の背景色初期化
+				inputMailAddress.style.backgroundColor = "";
+				inputName.style.backgroundColor = "";
+				inputAge.style.backgroundColor = "";
+				inputPasswprd.style.backgroundColor = "";
+
+				// 入力チェック
+				if (!patternMail.test(inputMailAddress.value)) {
+					// メールアドレスチェック
+					alert("メールアドレスは半角英数値で入力してください。");
+					inputMailAddress.style.backgroundColor = "#FF0000";
+				} else if (!patternName.test(inputName.value)) {
+					// 入力名前チェック
+					alert("名前は全角文字で入力してください。");
+					inputName.style.backgroundColor = "#FF0000";
+				} else if (!patternAge.test(inputAge.value)) {
+					// 入力年齢チェック
+					alert("年齢は１～３桁までの半角数値で入力してください。");
+					inputAge.style.backgroundColor = "#FF0000";
+				} else if (!patternPass.test(inputPasswprd.value)) {
+					// 入力パスワードチェック
+					alert("パスワードは８～１２桁までの半角数値で入力してください。");
+					inputPasswprd.style.backgroundColor = "#FF0000";
+				} else {
+					// 入力エラーなし
+					alert("入力エラーなし。");
+				}
+			}
+		</script>
+	</body>
+</html>

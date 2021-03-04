@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>練習</title>
+	</head>
+	<body>
+		<h1>練習</h1>
+		<input type="button" value="おみくじ" onclick="test()" />
+		<br />
+		<p id="disp"></p>
+		<script>
+			function test() {
+				let kekka = "なし";
+				let ran = Math.random();
+				ran = Math.floor(ran * 100);
+				if (ran <= 5) {
+					let ran5 = Math.random();
+					ran5 = Math.floor(ran5 * 90);
+					if (ran5 <= 30) {
+						kekka = "大吉";
+					} else if (ran5 <= 60) {
+						kekka = "凶";
+					} else {
+						kekka = "大凶";
+					}
+				} else if (ran <= 15) {
+					kekka = "吉";
+				} else {
+					let ran25 = Math.random();
+					ran25 = Math.floor(ran25 * 90);
+					if (ran25 <= 30) {
+						kekka = "中吉";
+					} else if (ran25 <= 60) {
+						kekka = "小吉";
+					} else {
+						kekka = "末吉";
+					}
+				}
+				document.getElementById("disp").innerHTML = kekka;
+			}
+		</script>
+	</body>
+</html>

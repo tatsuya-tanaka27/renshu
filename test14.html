@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>練習</title>
+	</head>
+	<body>
+		<h1>練習</h1>
+		<input type="button" value="時刻" onclick="test()" />
+		<br />
+		<p id="disp"></p>
+		<script>
+			function test() {
+				let msg = "";
+				const youbi = ["日", "月", "火", "水", "木", "金", "土"];
+				let time = new Date();
+				let year = time.getFullYear();
+				let month = time.getMonth() + 1;
+				let day = time.getDate();
+				let hours = time.getHours();
+				let minutes = time.getMinutes();
+				let seconds = time.getSeconds();
+				let milliseconds = time.getMilliseconds();
+				let week = youbi[time.getDay()];
+				msg =
+					year +
+					"年" +
+					month +
+					"月" +
+					day +
+					"日" +
+					hours +
+					"時" +
+					minutes +
+					"分" +
+					seconds +
+					"秒" +
+					milliseconds +
+					"ミリ秒" +
+					week +
+					"曜日";
+				document.getElementById("disp").innerHTML = msg;
+			}
+		</script>
+	</body>
+</html>

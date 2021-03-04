@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>万年カレンダー</title>
+	<link href="mannen.css" rel="stylesheet">
+</head>
+<body>
+<div id="wrapper">
+	<main>
+		<h1>万年カレンダー</h1>
+		<p>2000年1月以降のカレンダーを表示します。<br>
+		西暦と月を入力し、表示ボタンをクリックしてください。</p>
+		<form>
+			<input id="year" type="text" size="8">年
+			<input id="month" type="text" size="4">月
+			<input id="hyouzi" type="button" value="表示"><br>
+			<input id="mae" type="button" value="前月">
+			<input id="tugi" type="button" value="次月">
+		</form>
+		<table id="care"></table>
+	</main>
+</div>
+	<script>
+		const mae=document.getElementById("mae");
+		const tugi=document.getElementById("tugi");
+		const hyouzi=document.getElementById("hyouzi");
+		const year=document.getElementById("year");
+		const month=document.getElementById("month");
+
+		function mannen(){
+			let day=1,day2,youbi=6;	//2000年1月1日は土曜日
+			const care=document.getElementById("care");
+			let matsu=[31,28,31,30,31,30,31,31,30,31,30,31];//末日の配列を用意
+			let nen=year.value-2000;	//2000年からの経過年数
+			let mon=month.value-1;	//31行目配列に合わせる
+			let keika=nen*365;	//1年365として経過日数算出
+			let uruu=Math.floor(nen/4);	//まず４の倍数の数を求め、その後100年単位の分を減らす
+			let uruu2=uruu;	//uruu2はうるう年算出用、uruuはうるう年の回数
+			while(uruu2>=100){	//400年に３回うるう年じゃない４で割り切れる年がある
+				uruu2-=100;
+				uruu-=3;
+			}
+			while(uruu2>=25){	//2000年基準のため、その後100置きに3回うるう年じゃない
+				uruu2-=25;
+				uruu--;
+			}
+			if(nen%400==0 || (nen%4==0 && nen%100!=0)){	//指定がうるう年だった場合月で替わるのでいったん減らす
+				uruu--;
+			}
+			if(year!=2000){//2000年がうるう年なので、2001年以降は１加算
+				uruu++;
+			}
+			keika+=uruu;	//経過日数にうるう年の回数加算
+			for(i=0;i<mon;i++){	//指定年月の前月までの日数を経過に加算
+				keika+=matsu[i];
+			}
+			if(mon>=2 && (nen%400==0 || (nen%4==0 && nen%100!=0)) ){	//指定年がうるう年で3月以降なら１加算
+				keika++;
+			}			
+			youbi=(youbi+keika)%7;	//指定月の1日の曜日算出
+			let table="<tr><th>SUN</th><th>MON</th><th>TUE</th><th>WED</th><th>THU</th><th>FRI</th><th>SAT</th></tr>";
+			day-=youbi;	//カレンダー１週目日曜日の日付算出
+			if(nen%400==0 || (nen%4==0 && nen%100!=0) ){	//うるう年2月なら末日29日に
+				matsu[1]=29;
+			}
+			while(day<=matsu[mon]){
+				table+="<tr>";
+				for(let i=0;i<7;i++){
+					if(day<1 || day>matsu[mon]){	//カレンダーに出力するのは1日から末日まで
+						day2="";
+					}
+					else{
+						day2=day;
+					}
+					table+="<td>"+day2+"</td>";
+					day++;
+				}
+				table+="</tr>";
+			}
+			care.innerHTML=table;
+		}
+
+		function zenngetu(){	//指定月入力欄を1月前にしてカレンダー作成を呼び出し
+			let year2=year.value;
+			let month2=month.value;
+			if(month2==1){
+				month2=12;
+				year2--;
+			}
+			else{
+				month2--;
+			}
+			year.value=year2;
+			month.value=month2;
+			mannen();
+		}
+		
+		function yokutsuki(){	//指定月入力欄を1月後にしてカレンダー作成を呼び出し
+			let year2=year.value;
+			let month2=month.value;
+			if(month2==12){
+				month2=1;
+				year2++;
+			}
+			else{
+				month2++;
+			}
+			year.value=year2;
+			month.value=month2;
+			mannen();
+		}
+		
+		hyouzi.onclick=mannen;
+		mae.onclick=zenngetu;
+		tugi.onclick=yokutsuki;
+	</script>
+</body>
+</html>

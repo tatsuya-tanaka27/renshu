@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>てにす</title>
+		<link rel="stylesheet" href="tennis.css" />
+	</head>
+	<body>
+		<img id="wall" src="wall.png" alt="壁" />
+		<img id="ball" src="ball.png" alt="ボール" />
+		<img id="bar" src="bar.png" alt="ラケット" />
+		<form>
+			レベル<select id="lebel">
+				<option value="100" selected>初級</option>
+				<option value="70">中級</option>
+				<option value="50">上級</option></select
+			><br />
+			残球<input type="text" size="4" id="zannkyuu" /><br />
+			得点<input type="text" size="8" id="tokuten" /><br />
+			最高得点<input type="text" size="8" id="saikou" value="0" />
+			<input type="hidden" id="syokyuu" value="0" />
+			<input type="hidden" id="tyukyuu" value="0" />
+			<input type="hidden" id="jyoukyuu" value="0" />
+		</form>
+		<script>
+			const ball = document.getElementById("ball");
+			const lebel = document.getElementById("lebel");
+			const tokuten = document.getElementById("tokuten");
+			const zannkyuu = document.getElementById("zannkyuu");
+			const bar = document.getElementById("bar");
+			const saikou = document.getElementById("saikou");
+			let x, y; // ボールの初期位置
+			let dx = 10; // ボールの横移動距離
+			let dy = 10; // ボールの縦移動距離
+			let rx = 200; // ラケットの初期位置
+			let ten = 0; // 得点
+			let maxTen = 0; // 最高得点
+			let speed; // ボールの速さ
+			let flag = false; // スピードアップフラグ
+			let zan = 3; // 残りボール
+			let TimeID; // タイマーイベントのID
+
+			// ボール移動
+			function move() {
+				if (lebel.value == "100") {
+					maxTen = Number(document.getElementById("syokyuu").value);
+				} else if (lebel.value == "70") {
+					maxTen = Number(document.getElementById("tyukyuu").value);
+				} else {
+					maxTen = Number(document.getElementById("jyoukyuu").value);
+				}
+				saikou.value = maxTen; // 画面に表示する最高得点
+
+				// タイマーイベントのID取得
+				TimeID = setTimeout(move, speed);
+
+				// ボールの移動先を設定（xもyもプラスされているので、最初は右下に移動する）
+				x += dx;
+				y += dy;
+
+				// 横の壁に当たったら、逆方向に動く（符号を反転）
+				if (x <= 50 || x + 10 >= 450) {
+					dx = -dx;
+				}
+
+				// 縦の壁に当たったら、逆方向に動く（符号を反転）
+				if (y <= 50) {
+					dy = -dy;
+				}
+
+				// ラケットに当たった場合
+				// ラケットx座標の-10から+50で判定範囲を広めに取っているのは両横の角に当たっても判定させたいため
+				// y == 400 はラケットのy座標の位置
+				if (rx - 10 <= x && x <= rx + 50 && y + 10 == 400) {
+					// 縦の動きを反転
+					dy = -dy;
+
+					// 得点を追加
+					ten += 10;
+
+					// 100で割り切れる点数の時のみにスピードをあげる
+					if (ten % 100 == 10) {
+						flag = true; //スピードアップ後得点したら次のスピードアップ準備
+					}
+				}
+
+				// 一番下の壁に当たった場合
+				if (y >= 440) {
+					// 残りボールを減らす
+					zan -= 1;
+
+					// 残りボールがなくなった場合はゲームオーバーにして、ステータス初期化
+					if (zan == 0) {
+						// ゲームオーバーのアラート
+						alert(ten + "点\ngame over");
+
+						// 得点が最高得点を上回っていた場合にアラート出して、画面表示の最高得点も更新する
+						if (ten > maxTen) {
+							let kyuu = ""; // 画面表示の級
+
+							// 画面表示の級を設定
+							if (lebel.value == "100") {
+								kyuu = "初級";
+							} else if (lebel.value == "70") {
+								kyuu = "中級";
+							} else {
+								kyuu = "上級";
+							}
+
+							alert(
+								kyuu +
+									"の最高点が" +
+									maxTen +
+									"点から" +
+									ten +
+									"点になりました。"
+							);
+
+							// 画面表示の最高得点を更新
+							saikou.value = ten;
+
+							// 難易度別の最高得点を更新
+							if (lebel.value == "100") {
+								document.getElementById("syokyuu").value = ten;
+							} else if (lebel.value == "70") {
+								document.getElementById("tyukyuu").value = ten;
+							} else {
+								document.getElementById("jyoukyuu").value = ten;
+							}
+						}
+
+						// ステータス初期化
+						ten = 0;
+						zan = 3;
+					}
+
+					// ボールの動きを止める
+					clearTimeout(TimeID);
+				}
+
+				// ボールを移動
+				ball.style.left = x + "px";
+				ball.style.top = y + "px";
+
+				// 得点を画面に表示
+				tokuten.value = ten;
+
+				// 残りボールを画面に表示
+				zannkyuu.value = zan;
+
+				// 得点が100で割り切れて、800点以下で、フラグがオンになっていて、スピードが30より多い場合
+				// スピードが30より多くないといけないのは、スピードの設定値がマイナスになってしまうため
+				if (ten % 100 == 0 && ten <= 800 && flag == true && speed > 30) {
+					speed -= 10; // スピードアップ
+					flag = false; // フラグをオフ
+				}
+			}
+
+			// ラケットイベント
+			function racket(event) {
+				// マウスのX座標を取得して、25px（ラケットの半分の大きさ）マイナスする
+				rx = event.clientX - 25;
+
+				// wallの範囲内にいる場合のみ、マウスが動いたらラケットのX座標を変更する
+				if (50 <= rx && rx + 50 <= 450) {
+					bar.style.left = rx + "px";
+				}
+			}
+
+			// bodyの上でマウスが動いたらラケットイベント発動
+			document.getElementsByTagName("body")[0].onmousemove = function (event) {
+				racket(event);
+			};
+
+			// onchangeイベントが発生した時の処理を記述する
+			document.getElementById("lebel").onchange = function () {
+				if (lebel.value == "100") {
+					maxTen = Number(document.getElementById("syokyuu").value);
+				} else if (lebel.value == "70") {
+					maxTen = Number(document.getElementById("tyukyuu").value);
+				} else {
+					maxTen = Number(document.getElementById("jyoukyuu").value);
+				}
+				saikou.value = maxTen; // 画面に表示する最高得点
+			};
+
+			// ラケットがクリックされたら、ボール移動イベント開始
+			bar.onclick = function () {
+				// ボールの初期位置や速さを設定
+				x = Math.floor(Math.random() * 40) * 10 + 50;
+				y = Math.floor(Math.random() * 10) * 10 + 100;
+				speed = document.getElementById("lebel").value;
+				move();
+			};
+		</script>
+	</body>
+</html>

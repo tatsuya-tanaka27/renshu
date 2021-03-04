@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+html{
+	font-size:62.5%;
+}
+
+#wrapper{
+	width:500px;
+	margin:0 auto;
+	font-family:"Yu Gothic",ŸàƒSƒVƒbƒN,YuGothic,ŸàƒSƒVƒbƒN‘Ì,Meiryo,ƒƒCƒŠƒI,"Hiragino Kaku Gothic ProN","ƒqƒ‰ƒMƒmŠpƒS ProN W3",sans-serif;
+	font-size:1.8rem;
+	line-height:1.6;
+	box-sizing;border-box;
+}
+	
+main{
+	display:block;
+}
+
+h1{
+	font-size:2.4rem;
+}
+
+table{
+	margin-top:2rem;
+	border:1px solid rgb(0,0,0);
+	border-collapse:collapse;
+}
+
+th{
+	border:1px solid rgb(0,0,0);
+	width:5rem;
+}
+
+td{
+	text-align:right;
+	border:1px solid rgb(0,0,0);
+	padding-right:10px;
+}
+

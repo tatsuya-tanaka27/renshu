@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>練習</title>
+	</head>
+	<body>
+		<h1>練習</h1>
+		<input type="text" id="numInput" />
+		<input type="button" value="判定" onclick="test()" />
+		<br />
+		<p id="disp"></p>
+		<script>
+			function test() {
+				var num = Number(document.getElementById("numInput").value);
+
+				let ran = Math.random();
+				ran = Math.floor(ran * 20);
+				document.getElementById("disp").innerHTML = ran;
+			}
+		</script>
+	</body>
+</html>

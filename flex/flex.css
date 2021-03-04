@@ -1,0 +1,213 @@
+﻿@charset "utf-8";
+
+body,h1,h2,h3,p,ul,li,dl,dt,dd{
+	margin:0;
+	padding:0;
+}
+
+body{
+	font-size:62.5%;
+	line-height:1.6;
+}
+
+h1,h2{
+	font-size:2.6em;
+}
+
+h3{
+	font-size:2.0em;
+}
+
+p,dt,dd{
+	font-size:1.6em;
+}
+
+dd{
+	text-indent:3.2em;
+}
+
+ul,dl{
+	list-style:none;
+	margin:20px 0;
+}
+
+li{
+	font-size:2.0em;
+	font-weight:bold;
+	padding:10px;
+}
+
+#wrapper{
+	width:800px;
+	margin:0 auto;
+}
+
+main{
+	display:block;
+}
+
+main>section{
+	margin-bottom:5em;
+}
+
+.l1{
+	background-color:red;
+}
+
+.l2{
+	background-color:yellow;
+}
+
+.l3{
+	background-color:green;
+}
+
+.last{
+	margin:20px 0;
+}
+
+.inlineflex1 .display{
+	display:inline-flex;
+}
+
+.blockflex1 .display{
+	display:flex;
+}
+
+.inlineflex2 .display{
+	display:inline-flex;
+	flex-direction:row;
+}
+
+.blockflex2 .display{
+	display:flex;
+	flex-direction:row;
+
+}
+
+.inlineflex3 .display{
+	display:inline-flex;
+	flex-direction:row-reverse;
+}
+
+.blockflex3 .display{
+	display:flex;
+	flex-direction:row-reverse;
+
+}
+
+.inlineflex4 .display{
+	display:inline-flex;
+	flex-direction:column;
+}
+
+.blockflex4 .display{
+	display:flex;
+	flex-direction:column;
+
+}
+
+.inlineflex5 .display{
+	display:inline-flex;
+	flex-direction:column-reverse;
+}
+
+.blockflex5 .display{
+	display:flex;
+	flex-direction:column-reverse;
+
+}
+
+.inlineflex6,.inlineflex7,.inlineflex8,.blockflex6,.blockflex7,.blockflex8,.blockflex9{
+	width:600px;
+	border:solid 1px #999999;
+}
+
+.inlineflex6 li,.inlineflex7 li,.inlineflex8 li,.blockflex6 li,.blockflex7 li,.blockflex8 li,.blockflex9 li{
+	width:250px;
+}
+
+.inlineflex6 .display{
+	display:inline-flex;
+	flex-wrap:nowrap;
+}
+
+.blockflex6 .display{
+	display:flex;
+	flex-wrap:nowrap;
+}
+
+.inlineflex7 .display{
+	display:inline-flex;
+	flex-wrap:wrap;
+}
+
+.blockflex7 .display{
+	display:flex;
+	flex-wrap:wrap;
+}
+
+.inlineflex8 .display{
+	display:inline-flex;
+	flex-wrap:wrap-reverse;
+}
+
+.blockflex8 .display{
+	display:flex;
+	flex-wrap:wrap-reverse;
+}
+
+.blockflex9 .display{
+	display:flex;
+	flex-flow:row-reverse nowrap;
+}
+
+.blockflex10 .display{
+	display:flex;
+	justify-content:flex-start;
+}
+
+.blockflex11 .display{
+	display:flex;
+	justify-content:flex-end;
+}
+
+.blockflex12 .display{
+	display:flex;
+	justify-content:center;
+}
+
+.blockflex13 .display{
+	display:flex;
+	justify-content:space-between;
+}
+
+.blockflex14 .display{
+	display:flex;
+	justify-content:space-evenly;
+}
+
+.blockflex15 .display{
+	display:flex;
+	align-items:stretch;
+	height:20em;
+}
+
+.blockflex16 .display{
+	display:flex;
+	align-items:flex-start;
+	height:20em;
+}
+
+.blockflex17 .display{
+	display:flex;
+	align-items:flex-end;
+	height:20em;
+}
+
+.blockflex18 .display{
+	display:flex;
+	align-items:center;
+	height:20em;
+}
+

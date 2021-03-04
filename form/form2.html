@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>練習</title>
+	<link rel="stylesheet" href="form2.css">
+</head>
+<body>
+	<div id="wrapper">
+		<main>
+			<h1>入力フォーム</h1>
+			<form action="test.php" method="post">
+				<table>
+					<tr>
+						<th><label for="lastname">苗字</label></th>
+						<td><input type="text" id="lastname" name="lastname" size="20"></td>
+						<th><label for="firstname">名前</label></th>
+						<td><input type="text" id="firstname" name="firstname" size="20"></td>
+					</tr>
+					<tr>
+						<th><label for="email">メールアドレス</label></th>
+						<td colspan="3"><input type="email" id="email" name="email" size="60"></td>
+					</tr>
+					<tr>
+						<th><label for="pass">パスワード</label></th>
+						<td colspan="3"><input type="password" id="pass" name="pass" size="12"></td>
+					</tr>
+					<tr>
+						<th>年齢</th>
+						<td colspan="3">
+							<input type="radio" name="age" value="1">10代未満
+							<input type="radio" name="age" value="2">20代
+							<input type="radio" name="age" value="3">30代
+							<input type="radio" name="age" value="4">40代以上
+						</td>
+					</tr>
+					<tr>
+						<th rowspan="2"><label for="address">住所</label></th>
+						<td colspan="3"><input type="text" id="address" name="address1" size="60"></td>
+					</tr>
+					<tr>
+						<td colspan="3"><input type="text" name="address2" size="60"></td>
+					</tr>
+					<tr>
+						<th><label for="comment">フリーコメント</label></th>
+						<td colspan="3"><textarea cols="50" rows="4"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<input type="submit">
+							<input type="reset">
+						</td>
+					</tr>
+				</table>
+			</form>
+		</main>
+	</div>
+</body>
+</html>

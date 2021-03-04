@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>属性操作</title>
+	<style>
+		#btn2{
+			display:none;
+		}
+	</style>
+</head>
+<body>
+	<figure>
+		<img id="image" src="images/inu1.jpg" alt="犬の画像１">
+	</figure>
+	<div>
+		<input type="button" id="btn" value="stop">
+		<input type="button" id="btn2" value="start">
+	</div>
+	<script>
+		const image=document.getElementById("image");
+		const btn=document.getElementById("btn");
+		const btn2=document.getElementById("btn2");
+		const img_tbl=[
+			["images/inu1.jpg","犬の画像１"],
+			["images/inu2.jpg","犬の画像２"],
+			["images/neko2.jpg","猫の画像１"],
+			["images/neko3.jpg","猫の画像２"]
+		];
+		const att=["src","alt"];
+		let hyouzi=0;
+		function change(){
+			hyouzi++;
+			if(hyouzi==img_tbl.length){
+				hyouzi=0;
+			}
+			for(let i=0;i<att.length;i++){
+				image.setAttribute(att[i],img_tbl[hyouzi][i]);
+			}
+			timeID=setTimeout(change,2000);
+			btn.onclick=function(){
+				clearTimeout(timeID);
+				btn.style.display="none";
+				btn2.style.display="inline";
+			}
+		}
+		setTimeout(change,2000);
+		btn2.onclick=function(){
+			setTimeout(change,2000);
+			btn.style.display="inline";
+			btn2.style.display="none";
+		}
+	</script>
+</body>
+</html>

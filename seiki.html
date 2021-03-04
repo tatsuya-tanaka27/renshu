@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>正規表現による入力チェック</title>
+</head>
+<body>
+	<form>
+		ユーザーＩＤ（半角英数）：<input type="text" id="name" size="20">
+		<input type="button" id="btn" value="確認">
+	</form>
+	<form>
+		パスワード（６～８文字）：<input type="password" id="pass" size="8">
+		<input type="button" id="btn2" value="確認">
+	</form>
+	<form>
+		名前（全角）：<input type="text" id="namae" size="20">
+		<input type="button" id="btn3" value="確認">
+	</form>
+		<form>
+		メールアドレス：<input type="email" id="email" size="20">
+		<input type="button" id="btn4" value="確認">
+	</form>
+	
+	<script>
+	var regex=/^[0-9a-zA-Z]+$/;
+	//^は最初の文字
+	//0-9a-zA-Zが0～9、a～z、A～Z
+	//+は１文字以上（+を*に変えると０文字以上となり未入力許可）
+	//$は最後の文字
+	//正規表現を英語でregular expressionというので、regexやregexpが7よく使われる
+	document.getElementById("btn").onclick=function(){
+		if(regex.test(document.getElementById("name").value)){
+			alert("ＯＫ");
+		}
+		else{
+			alert("入力文字がＮＧ");
+		}
+	}
+	
+	var regex2=/^([a-zA-Z0-9]{6,8})$/;
+	//[a-zA-Z0-9]{6,8}が0～9、a～z、A～Zで６～８文字
+	document.getElementById("btn2").onclick=function(){
+		if(regex2.test(document.getElementById("pass").value)){
+			alert("ＯＫ");
+		}
+		else{
+			alert("入力文字がＮＧ");
+		}
+	}
+	
+	var regex3=/^[^\x01-\x7E\uFF65-\uFF9F]+$/;
+	//[]内の^が否定
+	//\x01-\x7Eが1バイト文字
+	//\uFF65-\uFF9Fが半角カナ
+	document.getElementById("btn3").onclick=function(){
+		if(regex3.test(document.getElementById("namae").value)){
+			alert("ＯＫ");
+		}
+		else{
+			alert("入力文字がＮＧ");
+		}
+	}
+	
+	var regex4=/^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@[A-Za-z0-9_.-]+\.[A-Za-z0-9]+$/;
+	//[A-Za-z0-9]{1}が0～9、a～z、A～Zで１文字
+	//[A-Za-z0-9_.-]*が0～9、a～z、A～Z、_、.、-で０文字以上
+	//@が@１文字
+	//[A-Za-z0-9_.-]+が0～9、a～z、A～Z、_、.、-で１文字以上
+	//\.が.1文字
+	//[A-Za-z0-9]+が0～9、a～z、A～Zで１文字以上
+	document.getElementById("btn4").onclick=function(){
+		if(regex4.test(document.getElementById("email").value)){
+			alert("ＯＫ");
+		}
+		else{
+			alert("入力文字がＮＧ");
+		}
+	}
+	</script>
+</body>
+</html>

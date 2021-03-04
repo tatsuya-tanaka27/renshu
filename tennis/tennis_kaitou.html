@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>テニス</title>
+	<link rel="stylesheet" href="tennis.css">
+</head>
+<body>
+	<img id="wall" src="wall.png" alt="壁">
+	<img id="ball" src="ball.png" alt="ボール">
+	<img id="bar" src="bar.png" alt="ラケット">
+	<form>
+		レベル<select id="lebel">
+			<option value="100" selected>初級</option>
+			<option value="70">中級</option>
+			<option value="50">上級</option>
+		</select><br>
+		残球<input type="text" size="4" id="zannkyuu"><br>
+		得点<input type="text" size="8" id="tokuten"><br>
+		ハイスコア<br>
+		初級<input type="text" size="8" id="shukyuu" value="0"><br>
+		中級<input type="text" size="8" id="chuukyuu" value="0"><br>
+		上級<input type="text" size="8" id="zyoukyuu" value="0">
+	</form>
+	<script>
+	    let x,y; // ボールの初期位置
+	    let dx=10,dy=10; // ボールの移動距離
+	    let rx=200; //ラケットの初期位置
+	    let ten=0;
+	    let speed;
+	    let flag=false;
+	    let zan=3;
+	    let TimeID;
+	    let hiscore=[
+	    	["shukyuu",0],
+	    	["chuukyuu",0],
+	    	["zyoukyuu",0]
+	    ];
+	    let lank;
+	    const ball=document.getElementById("ball");
+	    const tokuten=document.getElementById("tokuten");
+	    const zannkyuu=document.getElementById("zannkyuu");
+	    const bar=document.getElementById("bar");
+	    function move()
+	    {
+	        TimeID=setTimeout(move,speed);
+	        x+=dx;
+	        y+=dy;
+	        if (x<=50 || x+10>=450)
+	            dx=-dx;
+	        if (y<=50)
+	            dy=-dy;
+	        if (rx-10<=x && x<=rx+50 && y+10==400){
+	            dy=-dy;
+	            ten+=10;
+	            if(ten%100==10){
+	        			flag=true; //スピードアップ後得点したら次のスピードアップ準備
+	        		}
+	        }
+	        if(y>=440){
+	        	zan-=1;
+	        	if(zan==0){
+	        		if(ten>hiscore[lank][1]){
+	        			hiscore[lank][1]=ten;
+	        			document.getElementById(hiscore[lank][0]).value=ten;
+	        			alert(ten+"点\nHi-score!");
+	        		}
+	        		else{
+	        			alert(ten+"点\ngame over");
+	        		}
+	        		ten=0;
+	        		zan=3;
+	        	}
+	        	clearTimeout(TimeID);
+	        }
+	        ball.style.left=x+"px";
+	        ball.style.top=y+"px";
+	        tokuten.value=ten;
+	        zannkyuu.value=zan;
+	        if(ten%100==0 && speed>=30 && flag==true){
+	        	speed-=10;
+	        	flag=false;
+	        }
+	    }
+	    function racket(event)
+	    {
+	        rx=event.clientX-25;
+	        if (50<=rx && rx+50<=450)
+	            bar.style.left=rx+"px";
+	    }
+	    
+	     document.getElementsByTagName("body")[0].onmousemove=function(event){
+	        racket(event);
+	     }
+	     
+	     bar.onclick=function(){
+	     		x=Math.floor(Math.random()*40)*10+50;
+	     		y=Math.floor(Math.random()*10)*10+100;
+	        speed=document.getElementById("lebel").value;
+	        switch(speed){
+	        	case "100":
+	        		lank=0;
+	        		break;
+	        	case "70":
+	        		lank=1;
+	        		break;
+	        	default:
+	        		lank=2;
+	        		break;
+	        }
+	        move();
+	     }
+	</script>
+</body>
+</html>

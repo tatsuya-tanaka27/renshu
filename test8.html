@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>練習</title>
+</head>
+<body>
+  <h1>練習</h1>
+  <span>月：</span>
+  <input type="text" id="month">
+  <br>
+  <span>曜日：</span>
+  <input type="text" id="yobi">
+  <br>
+  <input type="button" value="出力" onclick="test()">
+  <br>
+  <p id="disp"></p>
+  <script>
+  function test() {
+  
+    var month= Number(document.getElementById("month").value);
+    var yobi= Number(document.getElementById("yobi").value);
+    var endNum = 0;
+    var day = 1;
+    var weekCount = 0;
+    var yobiArray = ['日', '月', '火', '水', '木', '金', '土'];
+    
+    if(month == 2) {
+      endNum = 28;
+    } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+      endNum = 30;
+    } else {
+      endNum = 31;
+    }
+    
+    document.write("<table>");
+
+    for(let rowNum = 0; rowNum < 7; rowNum++) {
+      
+      while(weekCount < 7) {
+        if(weekCount == 0){
+          document.write("<tr>");
+        }
+        
+        document.write("<td>");
+        document.write("<p>");
+        
+        if(day <= endNum) {
+          if(rowNum == 0) {
+            document.write(yobiArray[weekCount]);
+          } else if(rowNum == 1 && weekCount < yobi){
+            document.write("　");
+          } else {
+            document.write(day);
+            day++;
+          }
+        }
+        
+        document.write("</p>");
+        document.write("</td>");
+        
+        if(weekCount == 6) {
+          document.write("</tr>");
+        }
+        
+        weekCount++;
+        
+      }
+      
+      weekCount = 0;
+    }
+    document.write("</table>");
+  
+  }
+  </script>
+</body>
+</html>
