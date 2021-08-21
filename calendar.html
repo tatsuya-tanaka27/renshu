@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<title>カレンダー</title>
+	</head>
+	<body>
+		<div id="wrapper">
+			<main>
+				<section>
+					<h1>カレンダー</h1>
+					<p>2000年以降の日付を入力して、出力ボタンを押下してください。</p>
+					<div id="inputArea">
+						<span>年：</span>
+						<input type="text" id="inputYear" />
+						<span>月：</span>
+						<select id="inputMonth">
+							<option value="" selected></option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<input
+							id="output"
+							type="button"
+							value="出力"
+							onclick="calendar()"
+						/>
+					</div>
+					<div id="tableArea">
+						<table>
+							<tbody id="calendarTable_left"></tbody>
+						</table>
+						<table>
+							<tbody id="calendarTable_center"></tbody>
+						</table>
+						<table>
+							<tbody id="calendarTable_right"></tbody>
+						</table>
+					</div>
+				</section>
+			</main>
+		</div>
+		<script>
+			function calendar() {
+				const firstYear = 2000; // 処理開始年
+				const firstDay = 1; // 処理開始日
+				const firastWeek = 6; // 処理開始曜日・土曜日
+				const pattern = /^([1-9]\d*|0)$/; // 正規表現パターン（数値のみ許容）
+				// 曜日文字配列
+				const yobiArray = ["日", "月", "火", "水", "木", "金", "土"];
+				// 月と月が保持している日数（２番目の要素はうるう年用）
+				const dateArray = [
+					[1, 31, 0],
+					[2, 28, 29],
+					[3, 31, 0],
+					[4, 30, 0],
+					[5, 31, 0],
+					[6, 30, 0],
+					[7, 31, 0],
+					[8, 31, 0],
+					[9, 30, 0],
+					[10, 31, 0],
+					[11, 30, 0],
+					[12, 31, 0],
+				];
+
+				// バリデーションチェック start
+
+				// 半角数値以外が入力されていないかをチェック
+				if (
+					!pattern.test(Number(document.getElementById("inputYear").value)) ||
+					!pattern.test(Number(document.getElementById("inputMonth").value))
+				) {
+					alert("入力値は半角数値で入力すること");
+					return false;
+				}
+
+				// 入力値を数値に変換
+				const inputYear = Number(document.getElementById("inputYear").value);
+				const inputMonth = Number(document.getElementById("inputMonth").value);
+
+				// 入力値:年のチェック
+				if (inputYear < 2000) {
+					alert("年は2000以上の数値を入力すること");
+					return false;
+				}
+
+				// 入力値:月のチェック
+				if (!(inputMonth >= 1 && inputMonth <= 12)) {
+					alert("月は1から12までの数値を入力すること");
+					return false;
+				}
+
+				// バリデーションチェック end
+
+				// カレンダー日付算出処理 start
+
+				// 入力日付・年のうるう年フラグ
+				let uruFlg =
+					inputYear % 400 == 0 || (inputYear % 100 != 0 && inputYear % 4 == 0);
+
+				let yearCounter = 0; // 処理年数カウンター
+				let uruCounter = 0; // うるう年経過年数カウンター
+
+				// 入力日付が処理開始年以降であれば、処理年数カウンターとうるう年カウンターを設定する
+				if (inputYear > firstYear) {
+					// 処理年数 = 入力日付の年 - 処理開始年
+					yearCounter = inputYear - firstYear;
+
+					// 処理開始年が2000年だった場合は、うるう年カウンターを加算する
+					if (firstYear == 2000) {
+						uruCounter++;
+					}
+
+					// 入力年が処理開始年以外のうるう年の場合
+					if (inputYear != firstYear && uruFlg) {
+						// 入力年がうるう年だった場合の日数加算は別箇所でやっているので、うるう年カウンターを減算する
+						uruCounter--;
+					}
+
+					// うるう年の算出
+					let uru = Math.floor(yearCounter / 4); // うるう年4年毎の回数（これをうるう年全体の数とする）
+					let uru400 = Math.floor(yearCounter / 400); // うるう年４００年毎の回数
+					let notUru100 = Math.floor(yearCounter / 100); // うるう年でない１００年毎の回数
+					uruCounter = uruCounter + uru + uru400 - notUru100; // うるう年の回数
+				}
+
+				// 入力年の経過日数
+				let inputDays = 0;
+
+				// 年内の経過日数を算出する
+				for (let month = 1; month < inputMonth; month++) {
+					// 年内の経過日数加算処理
+					if (uruFlg && month == 2) {
+						// 入力日付・年がうるう年で、処理月が２月だった場合はうるう年用の日数を加算
+						inputDays += dateArray[1][2]; // ２月の日数（うるう年）
+					} else {
+						// 上記以外の場合は処理月の日数を加算
+						inputDays += dateArray[month - 1][1];
+					}
+				}
+
+				// 入力月の日数
+				let currentDays = 0;
+
+				// 入力月の日数を取得
+				if (uruFlg && inputMonth == 2) {
+					// 入力日付・年がうるう年で、入力月が２月だった場合はうるう年用の日数を加算
+					currentDays += dateArray[1][2]; // ２月の日数（うるう年）
+				} else {
+					// 上記以外の場合は入力月の日数を取得
+					currentDays += dateArray[inputMonth - 1][1];
+				}
+
+				let beforeDays = 0; // 入力月の前月の日数
+
+				// 入力月の前月の日数を取得
+				if (inputMonth == 1) {
+					// 入力月が１月だった場合は１２月の日数を加算
+					beforeDays += dateArray[11][1]; // １２月の日数
+				} else if (uruFlg && inputMonth - 1 == 2) {
+					// 入力日付・年がうるう年で、入力月の前月が２月だった場合はうるう年用の日数を加算
+					beforeDays += dateArray[1][2]; // ２月の日数（うるう年）
+				} else {
+					// 上記以外の場合は入力月から見て前月の日数を取得
+					beforeDays += dateArray[inputMonth - 2][1];
+				}
+
+				// 経過日数を計算する
+				const days_center = yearCounter * 365 + uruCounter + inputDays;
+				const days_left =
+					yearCounter * 365 + uruCounter + inputDays - beforeDays;
+				const days_right =
+					yearCounter * 365 + uruCounter + inputDays + currentDays;
+
+				// 開始日付の曜日を算出
+				const week_center = (firastWeek + days_center) % 7;
+				const week_left = (firastWeek + days_left) % 7;
+				const week_right = (firastWeek + days_right) % 7;
+
+				let endNum_center = 0; // カレンダーの最終日（中央）
+				let endNum_left = 0; // カレンダーの最終日（左）
+				let endNum_right = 0; // カレンダーの最終日（右）
+
+				let month_center = 0; // カレンダーの表示付き（中央）
+				let month_left = 0; // カレンダーの表示月（左）
+				let month_right = 0; // カレンダーの表示月（右）
+
+				// カレンダーの表示月と終了日を設定
+				if (uruFlg && inputMonth == 2) {
+					// 入力月が２月だった場合のうるう年用の設定
+					month_center = inputYear + "年" + 2 + "月"; // 表示月（中央）：2
+					endNum_center = dateArray[1][2]; // ２月の日数（うるう年）
+					month_left = inputYear + "年" + 1 + "月"; // 表示月（左）：1
+					endNum_left = dateArray[0][1]; // １月の日数
+					month_right = inputYear + "年" + 3 + "月"; // 表示月（右）：3
+					endNum_right = dateArray[2][1]; // ３月の日数
+				} else {
+					// 上記以外の設定
+					if (inputMonth == 1) {
+						// 入力月が１月だった場合
+						month_center = inputYear + "年" + 1 + "月"; // 表示月（中央）：1
+						endNum_center = dateArray[0][1]; // １月の日数
+						month_left = inputYear - 1 + "年" + 12 + "月"; // 表示月（左）：12
+						endNum_left = dateArray[11][1]; // １２月の日数
+						month_right = inputYear + "年" + 2 + "月"; // 表示月（右）：2
+						// 次月が２月なので、うるう年用の月であるかを判定する
+						if (uruFlg) {
+							endNum_right = dateArray[1][2]; // ２月の日数（うるう年）
+						} else {
+							endNum_right = dateArray[1][1]; // ２月の日数
+						}
+					} else if (inputMonth == 12) {
+						// 入力月が１２月だった場合
+						month_center = inputYear + "年" + 12 + "月"; // 表示月（中央）：12
+						endNum_center = dateArray[11][1]; // １２月の日数
+						month_left = inputYear + "年" + 11 + "月"; // 表示月（左）：11
+						endNum_left = dateArray[10][1]; // １１月の日数
+						month_right = inputYear + 1 + "年" + 1 + "月"; // 表示月（右）：1
+						endNum_right = dateArray[0][1]; // １月の日数
+					} else {
+						// 上記以外の場合
+						month_center = inputYear + "年" + inputMonth + "月"; // 表示月（中央）：入力月
+						endNum_center = dateArray[inputMonth - 1][1]; // 入力月の日数
+						month_left = inputYear + "年" + (inputMonth - 1) + "月"; // 表示月（左）：入力月 - 1
+						// 前月が２月だった場合は、うるう年用の月であるかを判定する
+						if (inputMonth - 1 == 2 && uruFlg) {
+							endNum_left = dateArray[1][2]; // ２月の日数（うるう年）
+						} else {
+							endNum_left = dateArray[inputMonth - 2][1]; // 入力月の前月の日数
+						}
+						month_right = inputYear + "年" + (inputMonth + 1) + "月"; // 表示月（右）：入力月 + 1
+						endNum_right = dateArray[inputMonth][1]; // 入力月の次月の日数
+					}
+				}
+
+				// カレンダー日付算出処理 end
+
+				// カレンダー画面描画処理 start
+
+				// カレンダー要素取得
+				let calendarTable_center = document.getElementById(
+					"calendarTable_center"
+				);
+				let calendarTable_left = document.getElementById("calendarTable_left");
+				let calendarTable_right = document.getElementById(
+					"calendarTable_right"
+				);
+
+				// カレンダー要素初期化
+				calendarTable_center.innerHTML = "";
+				calendarTable_left.innerHTML = "";
+				calendarTable_right.innerHTML = "";
+
+				// innerHTML格納用変数
+				let innerHTML_center = "";
+				let innerHTML_left = "";
+				let innerHTML_right = "";
+
+				let day = 1; // 画面描画処理用の日付
+
+				// カレンダー中央生成
+				for (let rowNum = 0; rowNum < 8; rowNum++) {
+					let weekCount = 0; // 画面描画処理用の曜日カウンター
+					// 日付描画処理
+					while (weekCount < 7) {
+						// 日付描画処理開始時に行追加
+						if (weekCount == 0) {
+							innerHTML_center += "<tr>";
+						}
+
+						// カレンダーテーブルの中身作成
+						if (rowNum == 0) {
+							// 最初の行は表示月を描画する
+							innerHTML_center += "<th colspan='7' class='th_month'>";
+							innerHTML_center += month_center;
+							innerHTML_center += "</th>";
+							weekCount = 6; // 次の行の処理にいくため、曜日カウンターをMAX値にする
+						} else if (rowNum == 1) {
+							// ２行目は曜日を表示
+							innerHTML_center += "<th>";
+							innerHTML_center += yobiArray[weekCount];
+							innerHTML_center += "</th>";
+						} else if (rowNum == 2 && weekCount < week_center) {
+							// 月初日が日曜ではない場合は月初日の曜日がくるまでは空白表示
+							innerHTML_center += "<td>";
+							innerHTML_center += "　";
+							innerHTML_center += "</td>";
+						} else {
+							if (day <= endNum_center) {
+								// 上記以外は日付表示
+								innerHTML_center += "<td>";
+								innerHTML_center += day;
+								innerHTML_center += "</td>";
+								day++; // 日付表示が終わったら、次の日付にする
+							}
+						}
+
+						// 日付描画処理が土曜日まで終わったら、行を閉じる
+						if (weekCount == 6) {
+							innerHTML_center += "</tr>";
+						}
+
+						// 次の曜日へ
+						weekCount++;
+					}
+					// 曜日の初期化（日曜日）
+					weekCount = 0;
+				}
+
+				day = 1; // 画面描画処理用の日付初期化
+
+				// 入力日付が処理開始年月でなければカレンダー左を生成
+				if (!(inputYear == 2000 && inputMonth == 1)) {
+					// カレンダー左生成
+					for (let rowNum = 0; rowNum < 8; rowNum++) {
+						let weekCount = 0; // 画面描画処理用の曜日カウンター
+						// 日付描画処理
+						while (weekCount < 7) {
+							// 日付描画処理開始時に行追加
+							if (weekCount == 0) {
+								innerHTML_left += "<tr>";
+							}
+
+							// カレンダーテーブルの中身作成
+							if (rowNum == 0) {
+								// 最初の行は表示月を描画する
+								innerHTML_left += "<th colspan='7' class='th_month'>";
+								innerHTML_left += month_left;
+								innerHTML_left += "</th>";
+								weekCount = 6; // 次の行の処理にいくため、曜日カウンターをMAX値にする
+							} else if (rowNum == 1) {
+								// ２行目は曜日を表示
+								innerHTML_left += "<th>";
+								innerHTML_left += yobiArray[weekCount];
+								innerHTML_left += "</th>";
+							} else if (rowNum == 2 && weekCount < week_left) {
+								// 月初日が日曜ではない場合は月初日の曜日がくるまでは空白表示
+								innerHTML_left += "<td>";
+								innerHTML_left += "　";
+								innerHTML_left += "</td>";
+							} else {
+								if (day <= endNum_left) {
+									// 上記以外は日付表示
+									innerHTML_left += "<td>";
+									innerHTML_left += day;
+									innerHTML_left += "</td>";
+									day++; // 日付表示が終わったら、次の日付にする
+								}
+							}
+
+							// 日付描画処理が土曜日まで終わったら、行を閉じる
+							if (weekCount == 6) {
+								innerHTML_left += "</tr>";
+							}
+
+							// 次の曜日へ
+							weekCount++;
+						}
+						// 曜日の初期化（日曜日）
+						weekCount = 0;
+					}
+				}
+
+				day = 1; // 画面描画処理用の日付初期化
+
+				// カレンダー右生成
+				for (let rowNum = 0; rowNum < 8; rowNum++) {
+					let weekCount = 0; // 画面描画処理用の曜日カウンター
+					// 日付描画処理
+					while (weekCount < 7) {
+						// 日付描画処理開始時に行追加
+						if (weekCount == 0) {
+							innerHTML_right += "<tr>";
+						}
+						// カレンダーテーブルの中身作成
+						if (rowNum == 0) {
+							// 最初の行は表示月を描画する
+							innerHTML_right += "<th colspan='7' class='th_month'>";
+							innerHTML_right += month_right;
+							innerHTML_right += "</th>";
+							weekCount = 6; // 次の行の処理にいくため、曜日カウンターをMAX値にする
+						} else if (rowNum == 1) {
+							// ２行目は曜日を表示
+							innerHTML_right += "<th>";
+							innerHTML_right += yobiArray[weekCount];
+							innerHTML_right += "</th>";
+						} else if (rowNum == 2 && weekCount < week_right) {
+							// 月初日が日曜ではない場合は月初日の曜日がくるまでは空白表示
+							innerHTML_right += "<td>";
+							innerHTML_right += "　";
+							innerHTML_right += "</td>";
+						} else {
+							if (day <= endNum_right) {
+								// 上記以外は日付表示
+								innerHTML_right += "<td>";
+								innerHTML_right += day;
+								innerHTML_right += "</td>";
+								day++; // 日付表示が終わったら、次の日付にする
+							}
+						}
+
+						// 日付描画処理が土曜日まで終わったら、行を閉じる
+						if (weekCount == 6) {
+							innerHTML_right += "</tr>";
+						}
+
+						// 次の曜日へ
+						weekCount++;
+					}
+					// 曜日の初期化（日曜日）
+					weekCount = 0;
+				}
+
+				// カレンダー生成
+				calendarTable_center.innerHTML += innerHTML_center;
+				calendarTable_left.innerHTML += innerHTML_left;
+				calendarTable_right.innerHTML += innerHTML_right;
+
+				// カレンダー画面描画処理 end
+			}
+		</script>
+		<style type="text/css">
+			html {
+				font-family: "MS Pゴシック" !important;
+			}
+			P {
+				color: red;
+			}
+			span {
+				vertical-align: middle;
+				text-align: center;
+				margin-right: 2px;
+			}
+			input {
+				margin-right: 10px;
+			}
+			select {
+				margin-right: 10px;
+			}
+			table {
+				margin-top: 10px;
+				margin-right: 10px;
+			}
+			th {
+				border: 1px solid black;
+				background-color: aqua;
+			}
+			tr {
+				border: 1px solid black;
+			}
+			td {
+				border: 1px solid black;
+				text-align: center;
+			}
+			#wrapper {
+				margin: 0 auto;
+			}
+			#inputArea {
+				display: flex;
+			}
+			#tableArea {
+				display: flex;
+			}
+			.th_month {
+				background-color: greenyellow !important;
+			}
+		</style>
+	</body>
+</html>
